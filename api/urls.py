@@ -1,9 +1,11 @@
 from django.urls import path
 from authentication.views import UserRegistrationView, VerifyEmailView, RequestNewOTPView, LoginView, LogoutView, PasswordResetRequestView, PasswordResetView
+from users.views import UserProfileView
 
 
 
 urlpatterns = [
+    # Auth
     path("auth/register/", UserRegistrationView.as_view()),
     path("auth/verify-email/", VerifyEmailView.as_view()),
     path("auth/request-new-otp/", RequestNewOTPView.as_view()),
@@ -11,4 +13,7 @@ urlpatterns = [
     path("auth/logout/", LogoutView.as_view()),
     path("auth/request-password-reset/", PasswordResetRequestView.as_view()),
     path("auth/reset-password/", PasswordResetView.as_view()),
+    
+    # Users
+    path("users/profile/", UserProfileView.as_view())
 ]

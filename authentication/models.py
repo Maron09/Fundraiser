@@ -6,7 +6,6 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.utils.timezone import now
 import random
 from datetime import timedelta
-from cloudinary.models import CloudinaryField
 import uuid
 
 
