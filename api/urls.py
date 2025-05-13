@@ -1,6 +1,7 @@
 from django.urls import path
 from authentication.views import UserRegistrationView, VerifyEmailView, RequestNewOTPView, LoginView, LogoutView, PasswordResetRequestView, PasswordResetView
 from users.views import UserProfileView
+from campaign.views import CategoryListView, CampaignListView, CampaignDetailView
 
 
 
@@ -15,5 +16,12 @@ urlpatterns = [
     path("auth/reset-password/", PasswordResetView.as_view()),
     
     # Users
-    path("users/profile/", UserProfileView.as_view())
+    path("users/profile/", UserProfileView.as_view()),
+    
+    # Category
+    path("categories/", CategoryListView.as_view()),
+    
+    # Campaign
+    path("campaigns/", CampaignListView.as_view()),
+    path("campaign/<str:slug>/", CampaignDetailView.as_view()),
 ]
