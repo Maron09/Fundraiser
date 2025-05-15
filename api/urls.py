@@ -3,6 +3,8 @@ from authentication.views import UserRegistrationView, VerifyEmailView, RequestN
 from users.views import UserProfileView
 from campaign.views import CategoryListView, CampaignListView, CampaignDetailView
 
+from accounts.views import PaystackBankListView
+
 
 
 urlpatterns = [
@@ -24,4 +26,7 @@ urlpatterns = [
     # Campaign
     path("campaigns/", CampaignListView.as_view()),
     path("campaign/<str:slug>/", CampaignDetailView.as_view()),
+    
+    # Accounts
+    path("accounts/banks/", PaystackBankListView.as_view()),
 ]

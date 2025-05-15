@@ -17,8 +17,8 @@ class CampaignSerializer(serializers.ModelSerializer):
     remaining_days = serializers.SerializerMethodField()
     # Uncomment when Donation model is implemented
     
-    # total_raised = serializers.SerializerMethodField()
-    # progress = serializers.SerializerMethodField()
+    total_raised = serializers.SerializerMethodField()
+    progress = serializers.SerializerMethodField()
 
     class Meta:
         model = Campaign
@@ -39,11 +39,11 @@ class CampaignSerializer(serializers.ModelSerializer):
 
     # Uncomment when Donation model is implemented
     
-    # def get_total_raised(self, obj):
-    #     return obj.total_raised
+    def get_total_raised(self, obj):
+        return obj.total_raised
 
-    # def get_progress(self, obj):
-    #     return round(obj.progress, 2)
+    def get_progress(self, obj):
+        return round(obj.progress, 2)
 
     def get_is_expired(self, obj):
         return obj.is_expired

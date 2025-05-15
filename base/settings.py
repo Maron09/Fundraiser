@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     "authentication",
     "users",
     "campaign",
+    "donations",
+    "accounts",
 ]
 
 REST_FRAMEWORK = {
@@ -192,3 +194,7 @@ cloudinary.config(
 )
 
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+
+
+PAYSTACK_SECRET_KEY = config("PAYSTACK_SECRET_KEY")
+PAYSTACK_PUBLIC_KEY = config("PAYSTACK_PUBLIC_KEY")
