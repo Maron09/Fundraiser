@@ -47,3 +47,43 @@ class PaystackBankListView(GenericAPIView):
             "message": "Paystack banks retrieved successfully." if banks else "No paystack banks available.",
             "data": serializer.data
         }, status=status.HTTP_200_OK)
+
+
+
+class AddUserBankAccountView(GenericAPIView):
+    """
+    View to add a bank account for a user
+    """
+    
+    serializer_class = UserBankAccountSerializer
+    permission_classes = [IsAuthenticated]
+    
+    
+    @swagger_auto_schema(
+        operation_summary="Add User Bank Account",
+        operation_description="Add a bank account for the authenticated user.",
+        request_body=UserBankAccountSerializer,
+        responses={
+            201: openapi.Response("User Bank Account Created", UserBankAccountSerializer),
+            400: "Bad Request",
+            401: "Unauthorized",
+        }
+    )
+    
+    @transaction.atomic
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data, context={"request": request})
+        
+        if serializer.is_valid():
+            serializer.save()
+            return Response({
+                "success": True,
+                "message": "Bank account added successfully.",
+                "data": serializer.data
+            }, status=status.HTTP_201_CREATED)
+        print("SERIALIZER ERRORS:", serializer.errors)
+        return Response({
+            "success": False,
+            "message": "Failed to add bank account.",
+            "errors": serializer.errors
+        }, status=status.HTTP_400_BAD_REQUEST)

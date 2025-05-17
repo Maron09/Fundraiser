@@ -11,7 +11,7 @@ class Command(BaseCommand):
     
     def handle(self, *args, **kwargs):
         try:
-            paystack.api_key = settings.PAYSTACK_SECRET_KEY
+            # paystack.api_key = settings.PAYSTACK_SECRET_KEY
             response = paystack.Verification.fetch_banks()
             if response.status:
                 banks = response.data
