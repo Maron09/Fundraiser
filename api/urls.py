@@ -5,6 +5,8 @@ from campaign.views import CategoryListView, CampaignListView, CampaignDetailVie
 
 from accounts.views import PaystackBankListView, AddUserBankAccountView
 
+from affiliate.views import BecomeAffiliateView, AffiliateWalletView
+
 
 
 urlpatterns = [
@@ -30,4 +32,8 @@ urlpatterns = [
     # Accounts
     path("accounts/banks/", PaystackBankListView.as_view()),
     path("accounts/bank/add/", AddUserBankAccountView.as_view()),
+    
+    # Affiliate
+    path("affiliate/become-affiliate/", BecomeAffiliateView.as_view()),
+    path("affiliate/wallet/", AffiliateWalletView.as_view()),
 ]

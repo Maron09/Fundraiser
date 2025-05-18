@@ -34,9 +34,9 @@ class UserBankAccountSerializer(serializers.ModelSerializer):
         if not bank_name_input:
             raise serializers.ValidationError({"bank_name": "This field is required."})
         
-        normarlized_bank_name = bank_name_input.lower().strip()
+        normalized_bank_name = bank_name_input.lower().strip()
         try:
-            bank = PaystackBank.objects.get(name__iexact=normarlized_bank_name)
+            bank = PaystackBank.objects.get(name__iexact=normalized_bank_name)
         except PaystackBank.DoesNotExist:
             raise serializers.ValidationError({
                 "bank_name": f"Bank {bank_name_input} not found. Please enter a valid bank name."
@@ -61,18 +61,19 @@ class UserBankAccountSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({
                 "account_number": response.get("message", "could not verify account number.")
             })
-        # response['data']['account_name']
+        
         attrs["account_name"] = response.data.get("account_name")
         attrs["is_verified"] = True
         attrs["bank"] = bank
         del attrs["bank_name"]
         
         user = self.context['request'].user
-        if UserBankAccount.objects.filter(user=user, account_number=account_number, bank=bank).exists():
+        existing_accounts = UserBankAccount.objects.filter(user=user, bank=bank)
+        if existing_accounts.filter(account_number=account_number).exists():
             raise serializers.ValidationError({
                 "account_number": "This account number is already linked to your profile."
             })
-        if UserBankAccount.objects.filter(user=user, bank=bank).count() >= 3:
+        if existing_accounts.count() >= 3:
             raise serializers.ValidationError({
                 "bank": "You can only link up to 3 accounts per bank."
             })

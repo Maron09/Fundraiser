@@ -7,8 +7,11 @@ class AccountsConfig(AppConfig):
     name = "accounts"
 
     # Change when production is ready use cron jobs
+    # def ready(self):
+    #     try:
+    #         call_command("fetch_banks")
+    #     except Exception as e:
+    #         print(f"Error fetching banks: {e}")
+    
     def ready(self):
-        try:
-            call_command("fetch_banks")
-        except Exception as e:
-            print(f"Error fetching banks: {e}")
+        import affiliate.signals

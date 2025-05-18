@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "campaign",
     "donations",
     "accounts",
+    "affiliate",
 ]
 
 REST_FRAMEWORK = {

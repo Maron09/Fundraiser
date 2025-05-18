@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework.generics import GenericAPIView
-from .models import PaystackBank, UserBankAccount
+from .models import PaystackBank
 from .serializers import PaystackBankSerializer, UserBankAccountSerializer
 from authentication.permissions import IsAdminOrReadOnly, IsOwner
 from rest_framework.permissions import IsAuthenticated, AllowAny
